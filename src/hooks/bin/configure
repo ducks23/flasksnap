@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import subprocess
+from pathlib import Path
+
+if __name__ == "__main__":
+	snap_mode = subprocess.check_output(["snapctl", "get", "snap.mode"])
+	Path(f"os.environ['SNAP_COMMON']}/snap_mode").write_bytes(snap_mode or "none)
+	sys.exit(0)
