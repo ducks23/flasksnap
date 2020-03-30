@@ -3,5 +3,5 @@
 set -e
 
 mkdir $SNAP_COMMON/config
-                                                                               
+touch $SNAP_COMMON/config/text-file.tmpl                                                                              
                                     

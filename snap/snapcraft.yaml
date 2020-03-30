@@ -1,4 +1,4 @@
-name: flaskapp # you probably want to 'snapcraft register <name>'
+name: flasksnap # you probably want to 'snapcraft register <name>'
 base: core18 # the base snap is the execution environment for this snap
 version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
 summary: the best snap evar
@@ -6,19 +6,22 @@ description: |
   I like apps that work
 
 grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: strict # use 'strict' once you have the right plugs and slots
+confinement: devmode # use 'strict' once you have the right plugs and slots
 
 
 apps:
-  flaskapp:
+  flasksnap:
     command: python3 $SNAP/app.py
     daemon: simple
     plugs:
       - network
       - network-bind
-      - ssh-keys
+      - network-control
+      - mount-observe
+      - system-observe
+      - system-files
 parts:
-  flaskapp:
+  flasksnap:
     source: src/flask/
     plugin: dump
     build-packages:
@@ -30,10 +33,8 @@ parts:
     override-build: |
       snapcraftctl build
       pip3 install flask
-
   hooks:
     plugin: dump
     source: src/hooks/
     organize:
       bin/: snap/hooks/
-
