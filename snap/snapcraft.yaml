@@ -6,7 +6,7 @@ description: |
   I like apps that work
 
 grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: devmode # use 'strict' once you have the right plugs and slots
+confinement: strict # use 'strict' once you have the right plugs and slots
 
 
 apps:
@@ -17,9 +17,6 @@ apps:
       - network
       - network-bind
       - network-control
-      - mount-observe
-      - system-observe
-      - system-files
 parts:
   flasksnap:
     source: src/flask/
