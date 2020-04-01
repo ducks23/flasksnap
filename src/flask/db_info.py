@@ -10,6 +10,8 @@ class DB_info:
         self.host = None
         self.port = None
         self.dbname = None
+        self._file = None
+        self.connected = 0;
 
     def set_user(self, user):
         self.user = user
@@ -26,6 +28,11 @@ class DB_info:
     def set_dbname(self, dbname):
         self.dbname = dbname
 
+    def set_file_open(self, _file):
+        self._file = _file
+
+    def get_open_file(self):
+        return self._file
 
     def get_user(self):
         return self.user
@@ -41,6 +48,9 @@ class DB_info:
 
     def get_dbname(self):
         return self.dbname
+
+    def is_connected(self):
+        return self.connected
 
     def parsefile(self, f):
         while True:
@@ -64,7 +74,14 @@ class DB_info:
                 break
 
     def openFile(self):
-        data_folder = Path("/var/snap/myflask/common/config/")
+        data_folder = Path(f"{os.environ['SNAP_COMMON']}/config/")
         file_to_open = data_folder / "text-file.txt"
-        return open(file_to_open)
-
+        _file = None
+        print("right here!!!!!!!!!!")
+        try:
+            _file = open(file_to_open)
+            self.connected = 1
+        except:
+            print("couldn't open file yet")
+            self.connected = 0
+        return _file

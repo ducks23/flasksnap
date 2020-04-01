@@ -1,25 +1,22 @@
 #!/usr/bin/env python3
 from flask import Flask
-from jinja import Environment, FileSystemLoader
-from path import Path
-from .db_info import DB_info
-
+from db_info import *
+import sys
 app = Flask(__name__)
 
 
 db = DB_info()
 
 f = db.openFile()
-db.parsefile(f)
+if db.is_connected():
+    db.parsefile(f)
 
-
-if db.get_user != None:
 
 
 
 @app.route("/success")
 def success_route():
-    if db.get_user != None:
+    if db.get_user() != None:
         return db.get_user
     else:
         return "no info :/    "
@@ -33,4 +30,4 @@ def error_route():
 
 
 
-app.run(host="0.0.0.0", port=5000)
+app.run(host="0.0.0.0", port=5001)

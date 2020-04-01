@@ -4,11 +4,8 @@ set -e
 
 mkdir $SNAP_COMMON/config
 touch $SNAP_COMMON/config/text-file.tmpl                                                                              
-echo "'DB_USER = {{ db.user }}'" > $SNAP_COMMON/config/text-file.tmpl
-echo "'DB_PASSWORD = {{ db.password }}'" > $SNAP_COMMON/config/text-file.tmpl
-echo "'DB_HOST = {{ db.host }}'" > $SNAP_COMMON/config/text-file.tmpl
-echo "'DB_PORT = {{ db.port }}'" > $SNAP_COMMON/config/text-file.tmpl
-echo "'DB_DNAME = {{ db.dbname }}'" > $SNAP_COMMON/config/text-file.tmpl
-
-
-
+echo "'DB_USER = {{ db.user }}'
+'DB_PASSWORD = {{ db.password }}'
+'DB_HOST = {{ db.host }}'
+'DB_PORT = {{ db.port }}'
+'DB_DNAME = {{ db.dbname }}'" > $SNAP_COMMON/config/text-file.tmpl
