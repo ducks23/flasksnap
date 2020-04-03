@@ -4,23 +4,14 @@ from db_info import *
 import sys
 app = Flask(__name__)
 
-
 db = DB_info()
-
-f = db.openFile()
+db.openFile()
 if db.is_connected():
-    db.parsefile(f)
+    db.parsefile()
 
-
-
-
-@app.route("/success")
-def success_route():
-    if db.get_user() != None:
-        return db.get_user
-    else:
-        return "no info :/    "
-
+@app.route("/")
+def success_route():    
+    return "this works" 
 
 @app.route("/error")
 def error_route():
@@ -30,4 +21,4 @@ def error_route():
 
 
 
-app.run(host="0.0.0.0", port=5001)
+app.run(host="0.0.0.0", port=8080)
