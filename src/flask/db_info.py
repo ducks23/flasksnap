@@ -78,7 +78,7 @@ class DB_info:
                 
     def openFile(self):
         data_folder = Path(f"/var/snap/flasksnap/common/config/")
-        file_to_open = data_folder / "thecodes.txt"
+        file_to_open = data_folder / "text-file.txt"
         try:
             self._file = open(file_to_open)
             self.connected = 1
