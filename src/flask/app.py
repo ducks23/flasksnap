@@ -12,6 +12,8 @@ data_folder = Path(f"/var/snap/flasksnap/common/config/")
 file_to_open = data_folder / "text-file.txt"
 
 info = None
+
+
 with open(file_to_open, 'r', encoding="utf-8") as f:
     info = [line.split() for line in f]
 
@@ -47,8 +49,11 @@ def success_route():
     cursor.execute("SELECT version();")
     record = cursor.fetchone()
     print("You are connected to - ", record,"\n")
-
     return str(connection.get_dsn_parameters())
+@app.route('/dbname'):
+def getinfo():
+    a = str(db.get_user() + db.get_password + db.get_host() + db.get_port())
+    return a;
 
 @app.route("/close")
 def error_route():
