@@ -53,35 +53,3 @@ class DB_info:
 
     def is_connected(self):
         return self.connected
-
-    def parsefile(self):
-        text = self.get_file()
-        print(text)
-        
-        '''
-        while True:
-            if len(line) > 1:
-                if line[0] == 'DB_USER':
-                    self.set_user(line[1][1:-1])
-                elif line[0] == 'DB_PASSWORD':
-                    self.set_password(line[1][1:-1])
-                elif line[0] == 'DB_HOST':
-                    self.set_host(line[1][1:-1])
-                elif line[0] == 'DB_PORT':
-                    self.set_port(line[1][1:-1])
-                elif line[0] == 'DB_NAME':
-                    self.set_dbname(line[1][1:-1])
-            if not line:
-                break
-'''
-                
-    def openFile(self):
-        data_folder = Path(f"/var/snap/flasksnap/common/config/")
-        file_to_open = data_folder / "thecodes.txt"
-        try:
-            self._file = open(file_to_open )
-            self.connected = 1
-        except:
-            print("couldn't open file yet")
-            self.connected = 0
-        

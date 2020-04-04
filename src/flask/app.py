@@ -2,37 +2,65 @@
 from flask import Flask
 from db_info import *
 import sys
+from psycopg2 import connect, extensions, sql
+
 app = Flask(__name__)
-"""
+
 db = DB_info()
-db.openFile()
-if db.is_connected():
-    db.parsefile()
-
-"""
-
-
 
 data_folder = Path(f"/var/snap/flasksnap/common/config/")
-file_to_open = data_folder / "thecodes.txt"
+file_to_open = data_folder / "text-file.txt"
 
-myNames = None
+info = None
 with open(file_to_open, 'r', encoding="utf-8") as f:
-    myNames = [line.split() for line in f]
+    info = [line.split() for line in f]
 
+for line in info:
+    if line[0] == 'DB_USER':
+        db.set_user(line[1][1:-1])
+    elif line[0] == 'DB_PASSWORD':
+        db.set_password(line[1][1:-1])
+    elif line[0] == 'DB_HOST':
+        db.set_host(line[1][1:-1])
+    elif line[0] == 'DB_PORT':
+        db.set_port(line[1][1:-1])
+    elif line[0] == 'DB_NAME':
+        db.set_dbname(line[1][1:-1])
 
+if db.is_connected():
+    try:
+        connection = psycopg2.connect(user = db.get_user(),
+                                      password = db.get_password,
+                                      host = db.get_host(),
+                                      port = db.get_port(),
+                                      database = "postgres_db")
+    except (Exception, psycopg2.Error) as error :
+        print ("Error while connecting to PostgreSQL", error)
 
 @app.route("/")
 def success_route():    
+    cursor = connection.cursor()
+    # Print PostgreSQL Connection properties
+    print ( connection.get_dsn_parameters(),"\n")
 
-    return str(myNames)
+    # Print PostgreSQL version
+    cursor.execute("SELECT version();")
+    record = cursor.fetchone()
+    print("You are connected to - ", record,"\n")
 
-@app.route("/error")
+    return str(connection.get_dsn_parameters())
+
+@app.route("/close")
 def error_route():
-    return "a" / 1
+    #closing database connection.
+    if(connection):
+        cursor.close()
+        connection.close()
+        return("PostgreSQL connection is closed")
 
-
-
+@app.route("/test")
+def tester():
+    return "this is a test"
 
 
 app.run(host="0.0.0.0", port=5001)
