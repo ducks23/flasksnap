@@ -12,8 +12,8 @@ DB_HOST ‘10.166.253.159’
 DB_PORT ‘5432’
 DB_NAME 'mydb'" > $SNAP_COMMON/config/thecodes.txt
 
-echo "'DB_USER {{ db.user }}'
-'DB_PASSWORD {{ db.password }}'
-'DB_HOST {{ db.host }}'
-'DB_PORT {{ db.port }}'
-'DB_DNAME {{ db.dbname }}'" > $SNAP_COMMON/config/text-file.tmpl
+echo "DB_USER {{ db.user }}
+DB_PASSWORD {{ db.password }}
+DB_HOST {{ db.host }}
+DB_PORT {{ db.port }}
+DB_DNAME {{ db.dbname }}" > $SNAP_COMMON/config/text-file.tmpl
